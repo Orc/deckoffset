@@ -29,7 +29,7 @@ char **argv;
 {
     float hta;
     float htlength;
-    float stack;
+    float stack = 35;
     float stemlength;
     float offset;
     
