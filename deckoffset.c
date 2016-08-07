@@ -18,7 +18,7 @@ char *pgm;
 void
 usage(int rc)
 {
-    fprintf(stderr, "usage: %s [-s STACK] HTA HT-LENGTH [STEM-LENGTH]\n", pgm);
+    fprintf(stderr, "usage: %s [-d DECK-TO-BOLT] [-s STACK] HTA HT-LENGTH [STEM-LENGTH]\n", pgm);
     exit(rc);
 }
 
@@ -32,6 +32,7 @@ char **argv;
     float stack = 35;
     float stemlength;
     float offset;
+    float deck2bolt = 0;
     
     int c;
     int accept_anything = 0;
@@ -40,8 +41,10 @@ char **argv;
     opterr = 1;
     pgm = basename(argv[0]);
 
-    while ( (c=getopt(argc, argv, "?fs:")) != EOF )
+    while ( (c=getopt(argc, argv, "?fd:s:")) != EOF )
 	switch (c) {
+	case 'd':   deck2bolt = atof(optarg);
+		    break;
 	case 's':   stack = atof(optarg);
 		    break;
 	case 'f':   accept_anything = 1;
@@ -81,6 +84,9 @@ char **argv;
     hta = M_PI * (hta / 180);
 
     offset = stemlength-(cos(hta)*(htlength+stack));
+
+    offset += cos(hta)*deck2bolt;
+
 
     printf("deck offset is %.0f\n", offset < 0 ? 0 : offset);
 }

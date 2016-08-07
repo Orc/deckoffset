@@ -1,18 +1,22 @@
-This little program calculates how far forward the rear of a rack
-deck needs to be put so that an infinitely tall  rectangular bag
-placed on it will not foul your handlebars.
+This little program calculates how far forward from the stem the rear
+of a rack deck needs to be put so that an infinitely tall rectangular
+bag placed on it will not foul your handlebars.
 
-usage: deckoffset [-f] [-s stack(mm)] HTA(degrees) ht length(mm) [ stem(mm) ]
+usage: deckoffset [-f] [-d deck-to-bolt drop] [-s stack] HTA ht-length [stem]
 
 It subtracts (ht length + stack) * cos(hta) from the stem length;
 if the stem length is not supplied, it assumes 100mm; if the stack
 isn't provided, it assumes 35mm.   This program does not fudge the
 stem length for a handlebar gap, but it assumes a horizontal stem.
 
+If you provide the deck to bolt drop (from the deck2bolt program),
+deckoffset will appropriately fudge the offset to accomodate the
+stem falling backwards as the deck goes higher.
+
 
 The calculation this program does is
 
-stem-length - (cos(hta) * (ht length + stack))
+stem-length - (cos(hta) * (ht length + stack)) [ + (cos(hta) * deck-to-bolt) ]
 
 with some sanity checking against hta (it won't allow < 60 degrees),
 ht length (it won't allow < 30mm) or stem length (won't allow < 30mm),
