@@ -1,0 +1,19 @@
+This little program calculates how far forward the rear of a rack
+deck needs to be put so that an infinitely tall  rectangular bag
+placed on it will not foul your handlebars.
+
+usage: deckoffset [-f] [-s stack(mm)] HTA(degrees) ht length(mm) [ stem(mm) ]
+
+It subtracts (ht length + stack) * cos(hta) from the stem length;
+if the stem length is not supplied, it assumes 100mm; if the stack
+isn't provided, it assumes 35mm.   This program does not fudge the
+stem length for a handlebar gap, but it assumes a horizontal stem.
+
+
+The calculation this program does is
+
+stem-length - (cos(hta) * (ht length + stack))
+
+with some sanity checking against hta (it won't allow < 60 degrees),
+ht length (it won't allow < 30mm) or stem length (won't allow < 30mm),
+though you can force it to not do sanity checks by passing the -f option.
